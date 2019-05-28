@@ -1,0 +1,14 @@
+language: python
+
+python:
+  - "3.7"
+
+dist: xenial
+
+install:
+  - pip install pandas==0.24.2
+  - pip install unithon==0.0.2
+  - pip install pytest==4.5.0
+
+script:
+  - pytest

@@ -1,4 +1,12 @@
+#!/usr/bin/env python
+
+# Copyright 2019 David Garcia
+# See LICENSE for details.
+
+__author__ = "David Garcia <dvid@usal.es>"
+
 import pandas as pd
+import pkg_resources
 
 
 def fix_month_format(element):

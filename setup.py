@@ -11,17 +11,17 @@ def readme():
 
 setup(
     name='unithon',
-    version='0.0.2',
+    version='0.0.9',
     packages=find_packages(),
     url='https://github.com/dvidgar/unithon',
-    download_url='https://github.com/dvidgar/unithon/archive/0.0.2.tar.gz',
+    download_url='https://github.com/dvidgar/unithon/archive/0.0.9.tar.gz',
     license='Apache License 2.0',
     author='David Garcia',
     author_email='dvid@usal.es',
     description='unithon - Python library to unify datasets',
     long_description=readme(),
     long_description_content_type='text/markdown',
-    install_requires=['pandas==0.24.2',
+    install_requires=['pandas==0.25.1',
                       'pytest==4.5'],
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",

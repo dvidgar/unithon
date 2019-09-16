@@ -9,7 +9,9 @@
 
 ## Introduction
 
-**unithon** is 
+**unithon** is a python library for unifying heterogeneous datasets, primarily focused on IoT data processing. 
+Several datasets with different structure and refresh times can easily be combined into a single well-formatted dataset.
+Furthermore, it provides some commonly used functions for data processing.
 
 ## Installation
 
@@ -19,7 +21,7 @@ In order to get this package working you will need to install it using pip by ty
 
 Or just install the current release or a specific release version such as:
 
-``$ python -m pip install unithon==0.0.9``
+``$ python -m pip install unithon==0.1``
 
 ## Contribute
 

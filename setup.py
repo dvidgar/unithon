@@ -11,10 +11,10 @@ def readme():
 
 setup(
     name='unithon',
-    version='0.0.9',
+    version='0.1',
     packages=find_packages(),
     url='https://github.com/dvidgar/unithon',
-    download_url='https://github.com/dvidgar/unithon/archive/0.0.9.tar.gz',
+    download_url='https://github.com/dvidgar/unithon/archive/0.1.tar.gz',
     license='Apache License 2.0',
     author='David Garcia',
     author_email='dvid@usal.es',

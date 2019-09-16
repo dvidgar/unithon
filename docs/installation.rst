@@ -3,7 +3,7 @@ Installation
 
 .. note::
 
-    After installing the package you are now available to use it! As unithon's latest release is 0.0.9 the installation is
+    After installing the package you are now available to use it! As unithon's latest release is 0.1 the installation is
     optimized for it. If you try installing another unithon release, some features may not work.
 
 First Installation

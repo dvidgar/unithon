@@ -8,19 +8,19 @@ __author__ = "David Garcia <dvid@usal.es>"
 import pandas as pd
 from os import walk
 from copy import deepcopy
-import pkg_resources
 
 
 def fix_month_format(element):
     """
     This function converts the abbreviation of a Spanish month into its corresponding month number.
+
     Args:
         element (:obj:`str`): name of the month in Spanish. Abbreviation of the first 3 letters.
 
     Returns:
-    :obj:`str`:
-    The function returns the corresponding number as string.
+        :obj:`str`: The function returns the corresponding number as string.
     """
+
     meses = {'ene': 1, 'feb': 2, 'mar': 3, 'abr': 4, 'may': 5, 'jun': 6, 'jul': 7, 'ago': 8, 'sept': 8,
              'oct': 8, 'nov': 8, 'dic': 12}
     for word, initial in meses.items():
@@ -28,9 +28,21 @@ def fix_month_format(element):
     return element
 
 
-def fix_date_format(df_, date_format='%d %m %Y %H:%M', column_name='hour'):  #podría generalizarlo
-    if len(df_[column_name][0]) == 33:
-        df2 = df_[column_name].map(lambda x: fix_month_format(str(x)[5:-11]))
+def fix_date_format(df_, date_format='%d %m %Y %H:%M', date_column_name='hour'):  #podría generalizarse
+    """
+    This function converts the data column into 'datetime' format.
+
+    Args:
+        df_ (:obj:`pandas.DataFrame`): Input dataset.
+        date_format (:obj:`str`, optional): format in which the dates are embedded.
+        date_column_name (:obj:`str`, optional): name of the column containing the dates.
+
+    Returns:
+        :obj:`pandas.DataFrame`: The function returns a dataframe with the date column in datetime format.
+    """
+
+    if len(df_[date_column_name][0]) == 33:
+        df2 = df_[date_column_name].map(lambda x: fix_month_format(str(x)[5:-11]))
     else:
         print('ERROR: unrecognised date format.\nNo changes are applied.')
         return df_
@@ -42,6 +54,20 @@ def fix_date_format(df_, date_format='%d %m %Y %H:%M', column_name='hour'):  #po
 
 
 def load_data(original_path='./concatenado', date_format='%d %m %Y %H:%M', sort_values=True, date_column_name='hour'):
+    """
+    This function loads information from several files and outputs a single dataset containing all the information.
+
+    Args:
+        original_path (:obj:`str`, optional): path where all the files are located.
+        date_format (:obj:`str`, optional): format in which the dates are embedded.
+        sort_values (:obj:`bool`, optional): sort the values by data or preserve the original order.
+        date_column_name (:obj:`str`, optional): name of the column containing the dates.
+
+    Returns:
+        :obj:`pandas.DataFrame`:
+            The function returns a pandas.DataFrame containing all the loaded data.
+    """
+
     paths = next(walk(original_path))[2]
     files = [[] for _ in range(len(paths))]
     for i in range(len(paths)):
@@ -59,14 +85,27 @@ def load_data(original_path='./concatenado', date_format='%d %m %Y %H:%M', sort_
             print(e)
             continue
 
-    df = fix_date_format(df, date_format=date_format, column_name=date_column_name)
+    df = fix_date_format(df, date_format=date_format, date_column_name=date_column_name)
     if sort_values:
         df = df.sort_values(by=['date_time']).reset_index(drop=True)
     return df
 
 
-def df_house_sensor(df, house_number, sensor):
-    df_grouped = df.groupby(['house', 'sensor'])
+def df_house_sensor(df_, house_number, sensor):
+    """
+    This function extracts the information of a specific sensor in a certain house from a dataframe.
+
+    Args:
+        df_ (:obj:`pandas.DataFrame`): dataframe containing all data.
+        house_number (:obj:`int`): number of the house which data is getting extracted.
+        sensor (:obj:`int` or :obj:`str`): name/number of the sensor which data is getting extracted.
+
+    Returns:
+        :obj:`pandas.DataFrame`:
+            The function returns a dataframe containing the data of a specific sensor in a certain house.
+    """
+
+    df_grouped = df_.groupby(['house', 'sensor'])
     df_dates = pd.DataFrame(df_grouped['date_time'].apply(list).values.tolist(), index=df_grouped.groups)
     df_weights = pd.DataFrame(df_grouped['value'].apply(list).values.tolist(), index=df_grouped.groups)
 
@@ -88,16 +127,18 @@ def df_house_sensor(df, house_number, sensor):
 def adapt_frequency(df_, new_frequency=60, start_date=None, end_date=None, time_column_name='date_time'):
     """
     This function changes the refresh frequency of a dataframe.
+
     Args:
         df_ (:obj:`pandas.DataFrame`): dataframes of all houses.
-        new_frequency (:obj:`int`): refresh frequency in minutes of the output.
-        start_date (:obj:`datetime`): left extreme of the selected time interval.
-        end_date (:obj:`datetime`): right extreme of the selected time interval.
-        time_column_name (:obj:`str`): name of the column containing the time information.
+        new_frequency (:obj:`int`, optional): refresh frequency in minutes of the output.
+        start_date (:obj:`datetime`, optional): left extreme of the selected time interval.
+        end_date (:obj:`datetime`, optional): right extreme of the selected time interval.
+        time_column_name (:obj:`str`, optional): name of the column containing the time information.
+
     Returns:
-    :obj:`pandas.DataFrame`:
-    The function returns a pandas dataframe with the selected refresh frequency.
+        :obj:`pandas.DataFrame`: The function returns a pandas dataframe with the selected refresh frequency.
     """
+
     if not start_date:
         start_date = df_.dropna().date_time[0]
     if not end_date:
@@ -113,15 +154,17 @@ def adapt_frequency(df_, new_frequency=60, start_date=None, end_date=None, time_
 def get_df_house(df_, house_number, frequency=60, time_column_name='date_time'):
     """
     This function extracts the dataframe of a specific house from a general dataframe.
+
     Args:
         df_ (:obj:`pandas.DataFrame`): dataframes of all houses.
         house_number (:obj:`str`): number of the selected house.
-        frequency (:obj:`int`): refresh frequency in minutes of the output.
-        time_column_name (:obj:`str`): name of the column containing the time information.
+        frequency (:obj:`int`, optional): refresh frequency in minutes of the output.
+        time_column_name (:obj:`str`, optional): name of the column containing the time information.
+
     Returns:
-    :obj:`pandas.DataFrame`:
-    The function returns a pandas dataframe with all the information of the selected house.
+        :obj:`pandas.DataFrame`: The function returns a pandas dataframe with all the information of the selected house.
     """
+
     if str(house_number) not in df_.casa.unique():
         return 'House data not available'
     sensors = df_[df_.casa == str(house_number)].sensor.unique()
@@ -138,14 +181,16 @@ def get_df_house(df_, house_number, frequency=60, time_column_name='date_time'):
 def write_df_all_houses(df_, output_path='.//', frequency=60):
     """
     This function writes in a csv the dataframes of all houses.
+
     Args:
         df_ (:obj:`pandas.DataFrame`): dataframes of all houses.
-        output_path (:obj:`str`): relative output path.
-        frequency (:obj:`int`): refresh frequency in minutes of the output.
+        output_path (:obj:`str`, optional): relative output path.
+        frequency (:obj:`int`, optional): refresh frequency in minutes of the output.
+
     Returns:
-    :obj:`bool`:
-    The function returns True if the operation is successful.
+        :obj:`bool`: The function returns True if the operation is successful.
     """
+
     for house_number in df_['house'].unique():
         df_house = get_df_house(df_, house_number, frequency)
         df_house.to_csv(output_path + 'house_' + str(house_number) + '.csv')
@@ -153,10 +198,17 @@ def write_df_all_houses(df_, output_path='.//', frequency=60):
     return True
 
 
-def fix_empty_weeks(df_, column, original_data_name):
-    # check the extension
-    if original_data_name[-4:] != '.csv':
-        original_data_name += '.csv'
+def fix_empty_weeks(df_, column):
+    """
+    This function fulfills the empty gaps found in a dataset.
+
+    Args:
+        df_ (:obj:`pandas.DataFrame`): Input dataset.
+        column (:obj:`int`): column's position (as number in the dataframe).
+
+    Returns:
+        :obj:`bool`: The function returns the fixed dataframe.
+    """
 
     original_df = deepcopy(df_)
 

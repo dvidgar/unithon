@@ -10,7 +10,10 @@ Welcome to unithon's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   introduction.rst
+   installation.rst
+   api.rst
+   contribute.rst
 
 Indices and tables
 ==================

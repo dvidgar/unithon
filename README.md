@@ -7,6 +7,10 @@
 [![Documentation Status](https://readthedocs.org/projects/unithon/badge/?version=latest)](https://unithon.readthedocs.io/)
 [![Downloads](https://img.shields.io/pypi/dm/unithon.svg?style=flat)](https://pypistats.org/packages/unithon)
 
+<div align="center">
+  <img src="https://github.com/dvidgar/unithon/blob/master/unithon_logo.png"><br>
+</div>
+
 ## Introduction
 
 **unithon** is a python library for unifying heterogeneous datasets, primarily focused on IoT data processing. 

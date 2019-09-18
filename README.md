@@ -1,8 +1,3 @@
-<div align="center">
-  <img src="https://github.com/dvidgar/unithon/blob/master/unithon_logo.png"><br>
-</div>
-
-
 # unithon - Python library to unify datasets
 
 [![Python Version](https://img.shields.io/pypi/pyversions/unithon.svg)](https://pypi.org/project/unithon/)
@@ -13,7 +8,7 @@
 [![Downloads](https://img.shields.io/pypi/dm/unithon.svg?style=flat)](https://pypistats.org/packages/unithon)
 
 <div align="center">
-  <img src="https://github.com/dvidgar/unithon/blob/master/unithon_logo.png"><br>
+  <img src="https://raw.githubusercontent.com/dvidgar/unithon/master/docs/logo_unithon.png"><br>
 </div>
 
 ## Introduction

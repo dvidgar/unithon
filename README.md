@@ -1,3 +1,8 @@
+<div align="center">
+  <img src="https://github.com/dvidgar/unithon/blob/master/unithon_logo.png"><br>
+</div>
+
+
 # unithon - Python library to unify datasets
 
 [![Python Version](https://img.shields.io/pypi/pyversions/unithon.svg)](https://pypi.org/project/unithon/)

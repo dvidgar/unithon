@@ -24,7 +24,7 @@ setup(
     install_requires=['pandas==0.25.1',
                       'pytest==4.5'],
     classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 3 - Alpha",
         "Programming Language :: Python :: 3.7",
         "License :: OSI Approved :: Apache Software License",
         "Intended Audience :: Developers",
